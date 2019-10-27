@@ -9,6 +9,7 @@ import './index.css'
 
 export default class App extends Component {
   render() {
+    console.log(TMDB);
     return (
       <div className='film-library'>
         <Filmlist films={TMDB.films}/>
@@ -17,4 +18,4 @@ export default class App extends Component {
     )
   }
  }
-
+ 
