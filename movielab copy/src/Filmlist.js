@@ -26,7 +26,12 @@ class FilmList extends React.Component {
   render() {
     const Films = this.props.films.map( (item,index) => {
       return(
-        <FilmRow  item = {item} />
+        <FilmRow
+  item={item}
+  key={item.id}
+  onFaveToggle={() => this.props.onFaveToggle(item)}
+  isFave={this.props.faves.includes(item)} 
+  />
       )
     })
     return (
@@ -39,7 +44,7 @@ class FilmList extends React.Component {
               </div>
               <div className={`film-list-filter ${this.state.filter === 'Faves' ? 'is-active' : ''}`} onClick={() => this.handleFilterClick('Faves')}>
                   FAVES
-                  <span className="section-count">0</span>
+                  <span className="section-count">{this.props.faves.length}</span>
               </div>
           </div>
 

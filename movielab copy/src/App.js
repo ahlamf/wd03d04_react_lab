@@ -8,12 +8,45 @@ import './index.css'
 
 
 export default class App extends Component {
+
+  constructor(props){
+    super(props)
+    this.state={
+      films :TMDB.films,
+      faves : [],
+      current : null
+    }
+    this.handleFaveToggle = this.handleFaveToggle.bind(this)
+    
+  }
+
+  handleFaveToggle(film){
+    const faves = this.state.faves.slice()
+    const filmIndex = faves.indexOf(film)
+    if(filmIndex >-1){
+      console.log("Removing "+ film.title+" from faves")
+      faves.splice(filmIndex, 1)
+    }
+    else{
+      console.log("Adding "+ film.title+" to faves")
+      faves.push(film)
+      }
+      this.setState({faves})
+    }
+    handleDetailsClick(film){  
+      console.log("Fetching details for "+film.title)
+      this.setState({current: film})
+    }
+    
+
   render() {
     console.log(TMDB);
     return (
-      <div className='film-library'>
-        <Filmlist films={TMDB.films}/>
-        <Filmdetails films={TMDB.films}/>
+      <div className="App" >
+        <div className="film-library">
+        <Filmlist films={this.state.films} onFaveToggle={this.handleFaveToggle} faves={this.state.faves} onDetailsClick={this.handleDetailsClick}/>
+        <Filmdetails films={this.state.current}/>
+        </div>
       </div>
     )
   }
